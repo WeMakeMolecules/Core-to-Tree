@@ -1,6 +1,7 @@
 #	core_to_phylo.pl
 #	A pipeline to make phylogenies from BPGA cores
 #	By Pablo Cruz-Morales
+#	Documentation ongoing: ask pcruzm@biosustain.dtu.dk
 
 
 open FILE, $ARGV[0] or die "I cant read the inputfile\n";
@@ -42,6 +43,9 @@ system `rm $listline.aln`;
 
 
 #--concatenating----
+#you neeed FasConCat for this step, get it here:
+#https://github.com/PatrickKueck/FASconCAT/blob/master/FASconCAT_v1.11.pl
+
 system `perl FASconCAT_v1.11.pl -s -n`;
 #--clening-up----
 system `rm *.faa *.htm *.faa.fas`;
