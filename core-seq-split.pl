@@ -1,8 +1,9 @@
 print "# core_to_phylo.pl                                                               #\n";
 print "# A pipeline to make phylogenies from BPGA cores                                 #\n";
 print "# By Pablo Cruz-Morales                                                          #\n";
-print "# Documentation ongoing: ask pcruzm@biosustain.dtu.dk                            #\n";
+print "# pcruzm@biosustain.dtu.dk     					                #\n";
 print "# usage: perl core_to_phylo.pl < BPGA core_seq.txt file> <BPGA DATASET.xls file> #\n\n\n";
+print "https://github.com/pablo-genomes-to-vials-cruz/core_to_phylo.pl/blob/main/core-seq-split.pl"\n;
 
 open FILE, $ARGV[0] or die "I cant read the inputfile\n";
 open OUT, '>TEMP' or die "I cant save the  TEMP file\n";
