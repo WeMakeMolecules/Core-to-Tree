@@ -6,11 +6,11 @@ print "# usage: perl core_to_phylo.pl < BPGA core_seq.txt file> <BPGA DATASET.xl
 print "https\:\/\/github.com\/pablo-genomes-to-vials-cruz\/core_to_phylo.pl\/blob\/main\/core-seq-split.pl\n";
 
 print "Eliminating files from previous runs\n";
-system 'rm -f SUPER*';
-system 'rm -f *.faa';
-system 'rm -f *.fas';
-system 'rm -f FcC_info.xls';
-system 'rm -f FcC_smatrix.nex';
+system 'rm  SUPER* 2> /dev/null';
+system 'rm  *.faa 2> /dev/null';
+system 'rm  *.fas 2> /dev/null';
+system 'rm  FcC_info.xls 2> /dev/null';
+system 'rm  FcC_smatrix.nex 2> /dev/null';
 
 open FILE, $ARGV[0] or die "I cant read the inputfile\n";
 open OUT, '>TEMP' or die "I cant save the  TEMP file\n";
