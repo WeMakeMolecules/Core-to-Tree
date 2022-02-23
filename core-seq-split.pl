@@ -3,7 +3,7 @@ print "# A pipeline to make phylogenies from BPGA cores                         
 print "# By Pablo Cruz-Morales                                                          #\n";
 print "# pcruzm@biosustain.dtu.dk     					                #\n";
 print "# usage: perl core_to_phylo.pl < BPGA core_seq.txt file> <BPGA DATASET.xls file> #\n\n\n";
-print "https\:\/\/github.com\/pablo-genomes-to-vials-cruz\/core_to_phylo.pl\/blob\/main\/core-seq-split.pl"\n;
+print "https\:\/\/github.com\/pablo-genomes-to-vials-cruz\/core_to_phylo.pl\/blob\/main\/core-seq-split.pl\n";
 
 print "Eliminating all runs\n";
 system 'rm SUPER*';
