@@ -5,6 +5,11 @@ print "# pcruzm@biosustain.dtu.dk     					                #\n";
 print "# usage: perl core_to_phylo.pl < BPGA core_seq.txt file> <BPGA DATASET.xls file> #\n\n\n";
 print "https://github.com/pablo-genomes-to-vials-cruz/core_to_phylo.pl/blob/main/core-seq-split.pl"\n;
 
+print "Eliminating all runs\n";
+system 'rm SUPER*';
+system 'rm FcC_info.xls';
+system 'rm FcC_smatrix.nex';
+
 open FILE, $ARGV[0] or die "I cant read the inputfile\n";
 open OUT, '>TEMP' or die "I cant save the  TEMP file\n";
 #----------making fasta oneline-------
