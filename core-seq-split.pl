@@ -1,12 +1,13 @@
-#	core_to_phylo.pl
-#	A pipeline to make phylogenies from BPGA cores
-#	By Pablo Cruz-Morales
-#	Documentation ongoing: ask pcruzm@biosustain.dtu.dk
-
+print "# core_to_phylo.pl                                                               #\n";
+print "# A pipeline to make phylogenies from BPGA cores                                 #\n";
+print "# By Pablo Cruz-Morales                                                          #\n";
+print "# Documentation ongoing: ask pcruzm@biosustain.dtu.dk                            #\n";
+print "# usage: perl core_to_phylo.pl < BPGA core_seq.txt file> <BPGA DATASET.xls file> #\n\n\n";
 
 open FILE, $ARGV[0] or die "I cant read the inputfile\n";
 open OUT, '>TEMP' or die "I cant save the  TEMP file\n";
-#----------maiking fasta oneline-------
+#----------making fasta oneline-------
+print "Formating the  input\n";
 while ($line=<FILE>){
 	if ($line=~/>/){
 	$line=~s/Org\d+\_Gene\d+//;
@@ -17,6 +18,7 @@ while ($line=<FILE>){
 }
 close OUT;
 #---------splitting by family---------------
+print "Splitting the core into protein families\n";
 open TEMP, 'TEMP' or die "I cant read the inputfile\n";
 while ($line2=<TEMP>){
 	$line2=~/>(\d+)\/(\d+)\/\#(.+)/;
@@ -31,11 +33,14 @@ system 'rm TEMP';
 close OUTFAM;
 system 'ls *.faa >listfaa';
 #------------------aligning-------------------
+print "Alingning a lot of sequences\n";
 open LIST, 'listfaa' or die "I cant open the listfaa\n";
 while ($listline=<LIST>){
 chomp $listline;
-system `muscle -in $listline -out $listline.aln`;
+print "Aligning sequences in protein family: $listline\n";
+system `muscle -in $listline -out $listline.aln -quiet`;
 #----trimming-----
+print "Trimming alignment for protein family: $listline \n";
 system `Gblocks $listline.aln -t p`;
 system `mv $listline.aln-gb $listline.fas`;
 system `rm $listline.aln`;
@@ -45,21 +50,23 @@ system `rm $listline.aln`;
 #--concatenating----
 #you neeed FasConCat for this step, get it here:
 #https://github.com/PatrickKueck/FASconCAT/blob/master/FASconCAT_v1.11.pl
-
+print "Concatenating the trimmed aligments\n";
 system `perl FASconCAT_v1.11.pl -s -n`;
-#--clening-up----
+#--cleaning-up----
+print "Cleaning up\n";
 system `rm *.faa *.htm *.faa.fas`;
 system `rm listfaa`;
 system `mv FcC_smatrix.fas SUPER_MATRIX.txt`;
 
 #-----changing-indexes-to-species-names--#
+print "Naming the sequences in the comcatenated supermatrix\n";
 open OUTMATRIX, '>SUPER_MATRIX.faa' or die "I cant write the SUPER_MATRIX.faa file\n";
 open SMATRIX, 'SUPER_MATRIX.txt' or die "I cant read the SUPER_MATRIX.txt file\n";
 while ($matline=<SMATRIX>){
 	if ($matline=~/>/){
 	$matline=~/(>)(\d+)/;
 	$ID="$2";
-	open DATASET, 'DATASET.xls' or die "I cant read the DATASET file\n";
+	open DATASET, $ARGV[1] or die "I cant read the DATASET file\n";
 		while ($datline=<DATASET>){
 			if ($datline=~/Genome\_no\./){
 			$dummy++;
@@ -69,6 +76,8 @@ while ($matline=<SMATRIX>){
 			$MATCH="$1";
 			$SPECIE="$3";
 			$SPECIE=~s/.fas//;
+			$SPECIE=~s/.faa//;
+			$SPECIE=~s/ /_/;
 				if ($ID==$MATCH){		
 				print  OUTMATRIX ">$SPECIE\n";
 				}
@@ -79,6 +88,8 @@ while ($matline=<SMATRIX>){
 	print OUTMATRIX $matline;
 	}
 }
+
+print "Supermatrix created!\n";
 #-----Making a partitions index file----#
 
 open CONCAT_FILE, 'FcC_info.xls' or die "I cant read the CONCAT_INFO file\n";
@@ -98,20 +109,8 @@ while ($catline=<CONCAT_FILE>){
         }
 }
 
-
+print "partitions file created! \n";
 #------Constructing the phylogeny with IQtree------#
+print "Building the phylogeny\n";
 system 'iqtree -s SUPER_MATRIX.faa -spp SUPERMATRIX.partitions -m TEST -bb 10000';
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+print "All done\n\n";
