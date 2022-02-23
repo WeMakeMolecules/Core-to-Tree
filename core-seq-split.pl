@@ -11,6 +11,8 @@ system 'rm  *.faa 2> /dev/null';
 system 'rm  *.fas 2> /dev/null';
 system 'rm  FcC_info.xls 2> /dev/null';
 system 'rm  FcC_smatrix.nex 2> /dev/null';
+system 'rm  *.htm 2> /dev/null';
+system 'rm  *listfaa 2> /dev/null';
 
 open FILE, $ARGV[0] or die "I cant read the inputfile\n";
 open OUT, '>TEMP' or die "I cant save the  TEMP file\n";
