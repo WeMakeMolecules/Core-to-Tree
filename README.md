@@ -14,7 +14,7 @@ https://www.drive5.com/muscle/
   
       sudo apt-get install muscle
 
-**GBlocks (trimmer): **
+**GBlocks (trimmer):**
 
 http://molevol.cmima.csic.es/castresana/Gblocks.html
 http://molevol.cmima.csic.es/castresana/Gblocks/Gblocks_documentation.html#Installation
