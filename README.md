@@ -18,10 +18,13 @@ https://www.drive5.com/muscle/
 
 http://molevol.cmima.csic.es/castresana/Gblocks.html
 http://molevol.cmima.csic.es/castresana/Gblocks/Gblocks_documentation.html#Installation
+or form here: https://slackbuilds.org/repository/15.0/academic/Gblocks/
   
   Install like this (install in /bin):
   
     wget http://molevol.cmima.csic.es/castresana/Gblocks/Gblocks_Linux64_0.91b.tar.Z
+    or
+    wget https://ponce.cc/slackware/sources/repo/Gblocks_Linux64_0.91b.tar.Z
     tar xvf Gblocks_Linux64_0.91b.tar.Z
     cd Gblocks_0.91b/
     sudo mv Gblocks /usr/bin/
