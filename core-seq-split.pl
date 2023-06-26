@@ -133,5 +133,5 @@ while ($catline=<CONCAT_FILE>){
 print "Partitions file created! \n";
 #------Constructing the phylogeny with IQtree------#
 print "Building the phylogeny\n\n";
-system 'iqtree -s SUPER_MATRIX.faa -spp SUPERMATRIX.partitions -m TEST -bb 10000';
+system 'iqtree2 -s SUPER_MATRIX.faa -spp SUPERMATRIX.partitions -m TEST -bb 10000';
 print "All done\n\n";
